@@ -1,19 +1,18 @@
-"use client";
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import AdminHeader from '/src/components/Admin/AdminHeader';
-import Sidebar from '/src/components/Admin/Sidebar';
+import { useNavigate } from 'react-router-dom';
+import AdminHeader from '/src/components/admin/AdminHeader';
+import Sidebar from '/src/components/admin/Sidebar';
 
 export default function AdminLayout({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
     if (!token) {
-      router.push('/admin/login');
+      navigate('/admin/login');
     } else {
       setIsAuthenticated(true);
     }

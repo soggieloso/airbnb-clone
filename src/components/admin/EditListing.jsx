@@ -1,22 +1,14 @@
-"use client";
-
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { ListingForm } from '../../components/Listings/ListingForm';
-import { api } from '../../services/api';
-
-const amenitiesList = [
-  'WiFi', 'Kitchen', 'Washer', 'Dryer', 'Air conditioning', 'Heating',
-  'TV', 'Parking', 'Pool', 'Gym', 'Pet friendly', 'Smoking allowed'
-];
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { ListingForm } from "./ListingForm";
+import { api } from "../../services/api";
 
 export default function EditListing() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState(null);
-  const [errors, setErrors] = useState({});
+  const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     fetchListing();
@@ -25,35 +17,36 @@ export default function EditListing() {
   const fetchListing = async () => {
     try {
       const data = await api.getListing(id);
-      setFormData(data);
+      setListing(data);
     } catch (error) {
-      setErrors({ fetch: 'Failed to load listing' });
+      console.error("Failed to fetch listing:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleSubmit = async (data) => {
-    setSubmitLoading(true);
+  const handleSubmit = async (formData) => {
+    setSubmitting(true);
     try {
-      const result = await api.updateListing(id, data);
-      if (result.id) {
-        navigate('/admin/listings');
-      } else {
-        setErrors({ submit: result.message || 'Failed to update listing' });
-      }
+      await api.updateListing(id, formData);
+      navigate("/admin/listings");
     } catch (error) {
-      setErrors({ submit: 'Network error. Please try again.' });
+      console.error("Failed to update listing:", error);
+      alert("Failed to update listing. Please try again.");
     } finally {
-      setSubmitLoading(false);
+      setSubmitting(false);
     }
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center h-64">Loading listing...</div>;
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-rose-500"></div>
+      </div>
+    );
   }
 
-  if (!formData) {
+  if (!listing) {
     return <div className="text-red-600 text-center py-8">Listing not found</div>;
   }
 
@@ -64,13 +57,9 @@ export default function EditListing() {
         <p className="text-gray-500 mt-1">Update your property information</p>
       </div>
       
-      <ListingForm
-        formData={formData}
-        setFormData={setFormData}
-        onSubmit={handleSubmit}
-        errors={errors}
-        loading={submitLoading}
-        amenitiesList={amenitiesList}
+      <ListingForm 
+        listing={listing} 
+        onSubmit={handleSubmit} 
         isEdit={true}
       />
     </div>

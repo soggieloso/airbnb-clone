@@ -1,0 +1,78 @@
+﻿/* Admin Panel Custom Styles */
+.admin-stats-card {
+  @apply bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow duration-300;
+}
+
+.admin-stats-value {
+  @apply text-3xl font-bold text-gray-800 mt-2;
+}
+
+.admin-table {
+  @apply min-w-full divide-y divide-gray-200;
+}
+
+.admin-table-header {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+}
+
+.admin-table-cell {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+.sidebar-link {
+  @apply flex items-center px-4 py-3 text-gray-700 rounded-lg transition-all duration-200;
+}
+
+.sidebar-link:hover {
+  @apply bg-gray-100;
+}
+
+.sidebar-link-active {
+  @apply bg-rose-500 text-white;
+}
+
+.sidebar-link-active:hover {
+  @apply bg-rose-600;
+
+  /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+  
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+  
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      background: #f43f5e;
+      border-radius: 10px;
+    }
+  
+    ::-webkit-scrollbar-thumb:hover {
+      background: #e11d48;
+    }
+  
+    /* Loading animation enhancement */
+    @keyframes shimmer {
+      0% {
+        background-position: -1000px 0;
+      }
+  
+      100% {
+        background-position: 1000px 0;
+      }
+    }
+  
+    /* Focus styles for better accessibility */
+    *:focus-visible {
+      outline: 2px solid #f43f5e;
+      outline-offset: 2px;
+    }
+}

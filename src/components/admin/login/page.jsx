@@ -1,15 +1,14 @@
-"use client";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +17,7 @@ export default function AdminLogin() {
 
     // Input validation
     if (!email || !password) {
-      setError('Please fill in all fields');
+      setError('Please in all fields');
       setLoading(false);
       return;
     }
@@ -43,7 +42,7 @@ export default function AdminLogin() {
       if (response.ok) {
         localStorage.setItem('adminToken', data.token);
         localStorage.setItem('adminUser', JSON.stringify(data.user));
-        router.push('/admin');
+        navigate('/admin');
       } else {
         setError(data.message || 'Login failed');
       }

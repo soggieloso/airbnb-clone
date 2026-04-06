@@ -1,6 +1,5 @@
-"use client";
 
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Heart, Star } from 'lucide-react';
 import { useState } from 'react';
 
@@ -9,7 +8,7 @@ export const ListingCard = ({ listing }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link href={`/listing/${listing.id}`}>
+    <Link to={`/listing/${listing.id}`}>
       <div 
         className="group cursor-pointer fade-in"
         onMouseEnter={() => setIsHovered(true)}

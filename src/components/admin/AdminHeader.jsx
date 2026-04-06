@@ -1,25 +1,14 @@
-"use client";
-
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { User, LogOut, Calendar, ChevronDown } from 'lucide-react';
 
-export default function AdminHeader() {
-  const [user, setUser] = useState(null);
+export default function AdminHeader({ user, onLogout }) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    const userData = localStorage.getItem('adminUser');
-    if (userData) {
-      setUser(JSON.parse(userData));
-    }
-  }, []);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
-    router.push('/admin/login');
+    onLogout();
+    navigate('/login');
   };
 
   return (
@@ -38,14 +27,14 @@ export default function AdminHeader() {
               <div className="w-8 h-8 bg-rose-500 rounded-full flex items-center justify-center">
                 <User size={16} className="text-white" />
               </div>
-              <span className="text-gray-700">Hello, {user.username}</span>
+              <span className="text-gray-700">Hello, {user.username || user.email}</span>
               <ChevronDown size={16} className="text-gray-500" />
             </button>
             
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
                 <button
-                  onClick={() => router.push('/admin/reservations')}
+                  onClick={() => navigate('/admin/reservations')}
                   className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center space-x-2"
                 >
                   <Calendar size={16} />
