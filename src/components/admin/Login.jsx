@@ -1,4 +1,4 @@
-import { useState } from "react";
+ï»¿import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../services/api";
 
@@ -71,7 +71,7 @@ export default function Login({ setUser }) {
             <input
               type="password"
               name="password"
-              placeholder="••••••"
+              placeholder="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
               value={formData.password}
               onChange={handleChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-rose-500"
