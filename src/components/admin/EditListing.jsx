@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ListingForm } from "./ListingForm";
-import { api } from "../../services/api";
+import API from "/src/services/api.js";
 
 export default function EditListing() {
   const { id } = useParams();

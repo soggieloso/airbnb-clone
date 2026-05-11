@@ -10,8 +10,9 @@
     type: "villa",
     price: 450,
     amenities: ["WiFi", "Pool", "Kitchen", "Parking"],
-    mainImage: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&h=600&fit=crop",
-    rating: 4.95
+    mainImage:
+      "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=800&h=600&fit=crop",
+    rating: 4.95,
   },
   {
     id: 2,
@@ -24,8 +25,9 @@
     type: "cabin",
     price: 299,
     amenities: ["WiFi", "Fireplace", "Kitchen", "Mountain View"],
-    mainImage: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&h=600&fit=crop",
-    rating: 4.89
+    mainImage:
+      "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&h=600&fit=crop",
+    rating: 4.89,
   },
   {
     id: 3,
@@ -38,8 +40,9 @@
     type: "loft",
     price: 350,
     amenities: ["WiFi", "Elevator", "Kitchen", "Gym"],
-    mainImage: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
-    rating: 4.78
+    mainImage:
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
+    rating: 4.78,
   },
   {
     id: 4,
@@ -52,8 +55,9 @@
     type: "villa",
     price: 1200,
     amenities: ["WiFi", "Pool", "Kitchen", "Parking", "Gym", "Cinema"],
-    mainImage: "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop",
-    rating: 4.98
+    mainImage:
+      "https://images.unsplash.com/photo-1613977257363-707ba9348227?w=800&h=600&fit=crop",
+    rating: 4.98,
   },
   {
     id: 5,
@@ -66,8 +70,9 @@
     type: "cottage",
     price: 275,
     amenities: ["WiFi", "Fireplace", "Kitchen", "Lake View", "Kayak"],
-    mainImage: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=600&fit=crop",
-    rating: 4.87
+    mainImage:
+      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=600&fit=crop",
+    rating: 4.87,
   },
   {
     id: 6,
@@ -80,7 +85,45 @@
     type: "desert home",
     price: 399,
     amenities: ["WiFi", "Pool", "Kitchen", "Stargazing", "Fire Pit"],
-    mainImage: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&h=600&fit=crop",
-    rating: 4.92
-  }
+    mainImage:
+      "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&h=600&fit=crop",
+    rating: 4.92,
+  },
+  {
+    id: 7,
+    title: "Tropical Treehouse",
+    location: "Costa Rica",
+    description: "Magical treehouse surrounded by lush rainforest",
+    bedrooms: 1,
+    bathrooms: 1,
+    guests: 2,
+    type: "treehouse",
+    price: 189,
+    amenities: ["WiFi", "Kitchen", "Nature Views", "Hammock", "Wildlife"],
+    mainImage:
+      "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=600&fit=crop",
+    rating: 4.94,
+  },
+  {
+    id: 8,
+    title: "Historic Mediterranean Villa",
+    location: "Santorini, Greece",
+    description:
+      "Stunning white-washed villa with caldera views and infinity pool",
+    bedrooms: 4,
+    bathrooms: 3,
+    guests: 8,
+    type: "villa",
+    price: 850,
+    amenities: [
+      "WiFi",
+      "Infinity Pool",
+      "Kitchen",
+      "Sunset Views",
+      "Wine Cellar",
+    ],
+    mainImage:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop",
+    rating: 4.97,
+  },
 ];

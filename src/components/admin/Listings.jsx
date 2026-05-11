@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { api } from '../../services/api';
+import API from "../../services/api";
 import { Edit, Trash2 } from 'lucide-react';
 
 export default function Listings() {
@@ -13,7 +13,7 @@ export default function Listings() {
 
   const fetchListings = async () => {
     try {
-      const data = await api.getListings();
+      const data = await API.getListings();
       setListings(data);
     } catch (error) {
       console.error('Failed to fetch listings:', error);
@@ -25,7 +25,7 @@ export default function Listings() {
   const handleDelete = async (id) => {
     if (confirm('Are you sure you want to delete this listing?')) {
       try {
-        await api.deleteListing(id);
+        await API.deleteListing(id);
         fetchListings();
       } catch (error) {
         console.error('Failed to delete listing:', error);

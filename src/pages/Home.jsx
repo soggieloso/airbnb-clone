@@ -40,6 +40,8 @@ export default function Home() {
                 <div className="text-xs text-left text-gray-500">Where are you going?</div>
                 <input
                   type="text"
+                  id="location"
+                  name="location"
                   placeholder="Anywhere"
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
@@ -51,6 +53,8 @@ export default function Home() {
                 <div className="text-xs text-left text-gray-500">Any week</div>
                 <input
                   type="text"
+                  id="week"
+                  name="week"
                   placeholder="Add dates"
                   value={week}
                   onChange={(e) => setWeek(e.target.value)}
@@ -62,6 +66,8 @@ export default function Home() {
                 <div className="text-xs text-left text-gray-500">Add guests</div>
                 <input
                   type="text"
+                  id="guests"
+                  name="guests"
                   placeholder="Add guests"
                   value={guests}
                   onChange={(e) => setGuests(e.target.value)}

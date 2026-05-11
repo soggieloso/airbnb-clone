@@ -1,44 +1,27 @@
-﻿const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
+﻿import express from "express";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cors from "cors";
+import path from "path";
 
-dotenv.config();
-
+dotenv.config({ path: path.resolve(process.cwd(), ".env") });
+console.log("ENV CHECK:", process.env.MONGODB_URI);
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// MongoDB connection using Atlas
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/airbnb-admin";
-
 mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log("✅ Connected to MongoDB Atlas!");
-    console.log("Database:", mongoose.connection.name);
-  })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err.message);
-  });
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch((err) => console.log(err));
 
-// Routes - Add .js extension
-app.use("/api/auth", require("./routes/authRoutes.js"));
-app.use("/api/listings", require("./routes/listingRoutes.js"));
-
-// Serve frontend in production
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend/dist", "index.html"));
-  });
-}
+app.get("/", (req, res) => {
+  res.send("API Running...");
+});
 
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`); // Fixed: Added template literal
+  console.log(`✅ Server running on port ${PORT}`);
 });
