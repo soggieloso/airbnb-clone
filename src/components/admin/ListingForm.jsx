@@ -4,14 +4,12 @@ import { ImageUpload } from '../ImageUpload';
 export const ListingForm = ({ listing = null, onSubmit, isEdit = false }) => {
   const [formData, setFormData] = useState({
     title: listing?.title || '',
-    hotelName: listing?.hotelName || '',
     description: listing?.description || '',
     location: listing?.location || '',
     price: listing?.price || '',
     guests: listing?.guests || 2,
     bedrooms: listing?.bedrooms || 1,
-    beds: listing?.beds || 1,
-    baths: listing?.baths || 1,
+    bathrooms: listing?.bathrooms || 1,
     amenities: listing?.amenities || [],
     images: listing?.images || [],
     type: listing?.type || 'entire_home',
@@ -69,7 +67,7 @@ export const ListingForm = ({ listing = null, onSubmit, isEdit = false }) => {
         <h2 className="text-xl font-semibold mb-4">Basic Information</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
+          <div className="md:col-span-2">
             <label className="block text-sm font-medium mb-1">Listing Title *</label>
             <input
               type="text"
@@ -79,18 +77,7 @@ export const ListingForm = ({ listing = null, onSubmit, isEdit = false }) => {
               required
             />
           </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-1">Hotel/Property Name *</label>
-            <input
-              type="text"
-              value={formData.hotelName}
-              onChange={(e) => setFormData({...formData, hotelName: e.target.value})}
-              className="w-full border rounded-lg p-2 focus:ring-2 focus:ring-rose-500"
-              required
-            />
-          </div>
-          
+
           <div className="md:col-span-2">
             <label className="block text-sm font-medium mb-1">Description</label>
             <textarea
@@ -185,22 +172,11 @@ export const ListingForm = ({ listing = null, onSubmit, isEdit = false }) => {
           </div>
           
           <div>
-            <label className="block text-sm font-medium mb-1">Beds</label>
+            <label className="block text-sm font-medium mb-1">Bathrooms</label>
             <input
               type="number"
-              value={formData.beds}
-              onChange={(e) => setFormData({...formData, beds: parseInt(e.target.value)})}
-              className="w-full border rounded-lg p-2"
-              min={1}
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium mb-1">Baths</label>
-            <input
-              type="number"
-              value={formData.baths}
-              onChange={(e) => setFormData({...formData, baths: parseInt(e.target.value)})}
+              value={formData.bathrooms}
+              onChange={(e) => setFormData({...formData, bathrooms: parseFloat(e.target.value)})}
               className="w-full border rounded-lg p-2"
               min={0}
               step={0.5}

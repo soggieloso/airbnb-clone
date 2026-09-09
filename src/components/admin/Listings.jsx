@@ -77,7 +77,7 @@ export default function Listings() {
               </thead>
               <tbody>
                 {listings.map((listing) => (
-                  <tr key={listing.id} className="border-b hover:bg-gray-50 transition">
+                  <tr key={listing._id} className="border-b hover:bg-gray-50 transition">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img 
@@ -99,13 +99,13 @@ export default function Listings() {
                     <td className="p-4">
                       <div className="flex gap-2">
                         <Link 
-                          to={`/admin/edit-listing/${listing.id}`} 
+                          to={`/admin/edit-listing/${listing._id}`}
                           className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition"
                         >
                           <Edit size={18} />
                         </Link>
                         <button 
-                          onClick={() => handleDelete(listing.id)} 
+                          onClick={() => handleDelete(listing._id)}
                           className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
                         >
                           <Trash2 size={18} />

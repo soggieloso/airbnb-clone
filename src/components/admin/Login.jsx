@@ -1,7 +1,9 @@
 ﻿import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Login({ setUser }) {
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,35 +29,16 @@ export default function Login({ setUser }) {
       return;
     }
 
-    try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // ACCEPT ANY EMAIL AND PASSWORD
-      // Create a mock user object
-      const mockUser = {
-        email: formData.email,
-        name: formData.email.split('@')[0] || "User",
-        id: Date.now().toString()
-      };
-      
-      // Store in localStorage
-      localStorage.setItem("adminToken", "mock-token-12345");
-      localStorage.setItem("user", JSON.stringify(mockUser));
-      
-      // Update user state
-      if (setUser) {
-        setUser(mockUser);
-      }
-      
-      // Redirect to admin dashboard
+    const result = await login(formData.email, formData.password);
+
+    if (result.success) {
+      if (setUser) setUser(result.user);
       navigate("/admin/dashboard");
-      
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    } else {
+      setError(result.error || "Invalid email or password");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -108,13 +91,7 @@ export default function Login({ setUser }) {
             {loading ? "Logging in..." : "Log in"}
           </button>
         </form>
-        
-        {/* Demo credentials info */}
-        <div className="mt-4 p-3 bg-green-50 rounded-lg text-center">
-          <p className="text-sm text-green-700 font-medium">✓ Any email & password works</p>
-          <p className="text-xs text-green-600 mt-1">Example: demo@test.com / anything</p>
-        </div>
-        
+
         <p className="text-center text-sm text-gray-600 mt-6">
           Don't have an account?{" "}
           <Link to="/signup" className="text-rose-500 hover:underline">

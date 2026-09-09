@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { ListingForm } from "./ListingForm";
-import API from "/src/services/api.js";
+import API from "../../services/api";
 
 export default function EditListing() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ export default function EditListing() {
 
   const fetchListing = async () => {
     try {
-      const data = await api.getListing(id);
+      const data = await API.getListing(id);
       setListing(data);
     } catch (error) {
       console.error("Failed to fetch listing:", error);
@@ -28,7 +28,7 @@ export default function EditListing() {
   const handleSubmit = async (formData) => {
     setSubmitting(true);
     try {
-      await api.updateListing(id, formData);
+      await API.updateListing(id, formData);
       navigate("/admin/listings");
     } catch (error) {
       console.error("Failed to update listing:", error);

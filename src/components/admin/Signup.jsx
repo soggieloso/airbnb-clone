@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Signup({ setUser }) {
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -39,35 +41,16 @@ export default function Signup({ setUser }) {
 
     setLoading(true);
 
-    try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // ACCEPT ANY SIGNUP - Create mock user
-      const mockUser = {
-        username: formData.username,
-        email: formData.email,
-        id: Date.now().toString(),
-        token: "mock-token-12345"
-      };
-      
-      // Store in localStorage
-      localStorage.setItem("token", mockUser.token);
-      localStorage.setItem("user", JSON.stringify(mockUser));
-      
-      // Update user state
-      if (setUser) {
-        setUser(mockUser);
-      }
-      
-      // Redirect to home page
+    const result = await register(formData.username, formData.email, formData.password);
+
+    if (result.success) {
+      if (setUser) setUser(result.user);
       navigate("/");
-      
-    } catch (err) {
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    } else {
+      setError(result.error || "Something went wrong. Please try again.");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -127,14 +110,7 @@ export default function Signup({ setUser }) {
             {loading ? "Creating account..." : "Sign up"}
           </button>
         </form>
-        
-        {/* Demo info box */}
-        <div className="mt-4 p-3 bg-green-50 rounded-lg text-center">
-          <p className="text-sm text-green-700 font-medium">✓ Any username, email & password works</p>
-          <p className="text-xs text-green-600 mt-1">Password must be at least 6 characters</p>
-          <p className="text-xs text-green-600 mt-1">Example: john / john@test.com / password123</p>
-        </div>
-        
+
         <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{" "}
           <Link to="/login" className="text-rose-500 hover:underline">

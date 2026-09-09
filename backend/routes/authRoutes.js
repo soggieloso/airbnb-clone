@@ -7,9 +7,10 @@ const router = express.Router();
 // Register
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password } = req.body;
+    // role is intentionally not accepted from the client — self-registration is always "user".
     // Password is hashed by the User model's pre-save hook — don't hash it here too.
-    const user = new User({ username, email, password, role });
+    const user = new User({ username, email, password });
     await user.save();
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {

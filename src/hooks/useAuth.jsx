@@ -38,10 +38,30 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("user", JSON.stringify(data.user));
         setUser(data.user);
         setIsAuthenticated(true);
-        return { success: true };
+        return { success: true, user: data.user };
       }
 
-      return { success: false, error: data.message };
+      return { success: false, error: data.error || data.message };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  };
+
+  const register = async (username, email, password) => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return { success: false, error: data.error || data.message };
+      }
+
+      return login(email, password);
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -66,6 +86,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         isAuthenticated,
         login,
+        register,
         logout,
         hasRole,
         isAdmin: user?.role === "admin",
