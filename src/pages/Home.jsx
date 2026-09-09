@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { listings } from "../components/data/listings";
+import { useState, useEffect } from "react";
+import API from "../services/api";
 import { ListingCard } from "../components/ListingCard";
 
 const categories = [
@@ -17,6 +17,15 @@ export default function Home() {
   const [location, setLocation] = useState("");
   const [week, setWeek] = useState("");
   const [guests, setGuests] = useState("");
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    API.getListings()
+      .then(setListings)
+      .catch((error) => console.error("Failed to fetch listings:", error))
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -121,11 +130,19 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {listings.map((listing) => (
-            <ListingCard key={listing.id} listing={listing} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-rose-500"></div>
+          </div>
+        ) : listings.length === 0 ? (
+          <p className="text-center text-gray-500 py-12">No listings yet — check back soon.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {listings.map((listing) => (
+              <ListingCard key={listing._id} listing={listing} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

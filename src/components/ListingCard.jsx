@@ -7,7 +7,7 @@ export const ListingCard = ({ listing }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <Link to={`/listing/${listing.id}`}>
+    <Link to={`/listing/${listing._id}`}>
       <div 
         className="group cursor-pointer fade-in"
         onMouseEnter={() => setIsHovered(true)}
