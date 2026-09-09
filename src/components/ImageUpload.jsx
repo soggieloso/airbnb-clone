@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import API from '../services/api';
 
 export const ImageUpload = ({ onImageUpload, currentImages = [], multiple = true }) => {
   const [uploading, setUploading] = useState(false);
@@ -46,13 +47,8 @@ export const ImageUpload = ({ onImageUpload, currentImages = [], multiple = true
       for (const file of imageFiles) {
         const formData = new FormData();
         formData.append('image', file);
-        
-        const response = await fetch('http://localhost:5000/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
-        
-        const data = await response.json();
+
+        const { data } = await API.post('/upload', formData);
         if (data.url) {
           uploadedImages.push(data.url);
         }
