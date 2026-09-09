@@ -1,4 +1,4 @@
-﻿const mongoose = require('mongoose');
+import mongoose from "mongoose";
 
 const listingSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -16,9 +16,9 @@ const listingSchema = new mongoose.Schema({
   cleaningFee: { type: Number, default: 0 },
   serviceFee: { type: Number, default: 0 },
   occupancyTaxes: { type: Number, default: 0 },
-  host: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  host: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Listing', listingSchema);
+export default mongoose.model("Listing", listingSchema);

@@ -1,15 +1,15 @@
-const express = require("express");
+import express from "express";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
+
 const router = express.Router();
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 // Register
 router.post("/register", async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ username, email, password: hashedPassword, role });
+    // Password is hashed by the User model's pre-save hook — don't hash it here too.
+    const user = new User({ username, email, password, role });
     await user.save();
     res.status(201).json({ message: "User created successfully" });
   } catch (error) {
@@ -24,12 +24,13 @@ router.post("/login", async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
-    const isValid = await bcrypt.compare(password, user.password);
+    const isValid = await user.comparePassword(password);
     if (!isValid) return res.status(401).json({ error: "Invalid credentials" });
 
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
+      { expiresIn: "7d" },
     );
     res.json({
       token,
@@ -45,4 +46,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,24 +1,26 @@
-﻿import express from "express";
-import mongoose from "mongoose";
+import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import path from "path";
+import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+import listingRoutes from "./routes/listingRoutes.js";
 
 dotenv.config({ path: path.resolve(process.cwd(), ".env") });
-console.log("ENV CHECK:", process.env.MONGODB_URI);
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.log(err));
+connectDB();
 
 app.get("/", (req, res) => {
   res.send("API Running...");
 });
+
+app.use("/api/auth", authRoutes);
+app.use("/api/listings", listingRoutes);
 
 const PORT = process.env.PORT || 5000;
 
